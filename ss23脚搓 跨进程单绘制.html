@@ -1,0 +1,836 @@
+<!-- 会用用，不会用垃圾吧倒 -->
+<!-- 善用搜索引擎，别几把问题就叫叫叫 -->
+<!-- 有bug请先尝试自己解决 -->
+<!-- QQ交流群：723129438 -->
+<!-- 官方频道: https://t.me/+ScaPGqbc7Kg1OWUx -->
+<!-- 微信聊天群: mihan103 -->
+<!DOCTYPE html>
+<html>
+	<header>
+		<title>芈寒</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="mimang/imgui/index.css" />
+		<script src="mimang/imgui/vue.min.js"></script>
+		<script src="mimang/imgui/index.js"></script>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				color: #FFF;
+			}
+			*:not(input, checkbox, textarea) {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				user-select: none;
+			}
+			.ayimgui {
+				position: fixed;
+				width: 360px;
+				height: 320px;
+				top: calc(50% - 180px);
+				left: calc(50% - 180px);
+				z-index: 999;
+				background-color: #141616;
+				border-radius: 8px;
+				overflow: hidden;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+			.onlyTitle {
+				height: 27px !important;
+			}
+			.ayimgui .aytitle {
+				padding: 0 8px;
+				font-size: 16px;
+				background-color: #284A7A;
+			}
+			.ayimgui .aytitle .titleClose {
+				position: absolute;
+				top: 3px;
+				right: 6px;
+				color: #FFF;
+			}
+			.ayimgui .aytitle .titleClose:hover {
+				color: #409EFF;
+			}
+			.ayimgui .aybody {
+				padding: 15px;
+				height: calc(100% - 21px - 15px - 15px);
+				overflow: auto;
+				font-size: 14px;
+			}
+			.aytext {
+				width: 100%;
+				margin-bottom: 10px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				color: #FFF;
+			}
+			.el-checkbox {
+				margin: 5px;
+			}
+        	.el-checkbox__label {
+				color: #FFF;
+			}
+			.el-checkbox__input.is-checked+.el-checkbox__label {
+				color: #409EFF;
+			}
+			.el-checkbox__inner {
+				background-color: #1D2E48;
+				border-radius: 4px;
+				width: 24px;
+				height: 24px;
+				border: none;
+			}
+			.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+				background-color: #1D2E48;
+				border-color: #1D2E48;
+			}
+			.el-checkbox__inner::after {
+				border: 3px solid #409EFF;
+				border-left: 0;
+				border-top: 0;
+				height: 14px;
+				left: 8px;
+				top: 1px;
+				width: 5px;
+			}
+			.el-checkbox__input.is-checked+.el-checkbox__label {
+				color: #FFF;
+			}
+			.el-radio {
+				margin: 8px 1;
+			}
+			.el-radio__label {
+				color: #FFF;
+			}
+			.el-radio__input.is-checked+.el-radio__label {
+				color: #409EFF;
+			}
+			.el-radio__inner {
+				background-color: #1D2E48;
+				border: none;
+			}
+			.el-radio__input.is-checked .el-radio__inner {
+				background-color: #1D2E48;
+			}
+			.el-radio__input.is-checked+.el-radio__label {
+				color: #FFF;
+			}
+			.el-radio__inner::after {
+				width: 10px;
+				height: 10px;
+				background-color: rgb(58, 138, 247);
+			}
+			.onlySelect {
+				background-color: #1D2E48;
+				border: none;
+			}
+			.onlySelect .el-select-dropdown__item {
+				color: #FFF;
+
+			}
+			.onlySelect .el-select-dropdown__item.hover,
+			.el-select-dropdown__item:hover:hover {
+				background-color: transparent;
+			}
+			.onlySelect .popper__arrow {
+				border-bottom-color: #1C2E48 !important;
+			}
+			.onlySelect.el-popper[x-placement^=bottom] .popper__arrow::after {
+				border-bottom-color: #1C2E48 !important;
+			}
+			.el-select {
+				width: 100%;
+			}
+			.el-select .el-input {
+				background-color: #1D2E48;
+			}
+			.el-select .el-input__suffix {
+				background-color: #25456D;
+				color: #FFF;
+				right: 0;
+			}
+			.el-select .el-select__caret {
+				color: #FFF;
+			}
+			.el-select .el-input__inner {
+				background-color: transparent;
+				border: none;
+				color: #FFF;
+			}
+			.el-select .el-input .el-select__caret {
+				color: #FFF;
+			}
+			.el-scrollbar .el-scrollbar__bar {
+				opacity: 1 !important;
+			}
+			.el-button {
+				font-size: 14px;
+				padding: 5px 10px;
+				line-height: 14px;
+				color: #FFF;
+				background-color: #284A7A;
+				border: none;
+			}
+			.el-button:hover {
+				color: #FFF;
+				background-color: #387ACA;
+			}
+			.el-button:focus,
+			.el-button:hover {
+				color: #FFF;
+				background-color: #387ACA;
+			}
+			.aycollapse {
+				padding: 0 5px;
+				width: 97%;
+				font-size: 15px;
+				background-color: #284A7A;
+				border-radius: 4px;
+				color: #FFF;
+			}
+			.aytab {
+				width: 100%;
+				height: 20px;
+				display: flex;
+				border-bottom: 2px solid #387CCC;
+			}
+			.aytab span {
+				padding: 0 5px;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background-color: #25456D;
+				color: #FFF;
+				font-size: 14px;
+				font-weight: 500;
+				margin-left: 10px;
+				border-radius: 6px 6px 0 0;
+				cursor: pointer;
+			}
+			.el-input input {
+				background-color: #1D2E48;
+				border: none;
+				border-radius: 0px;
+				color: #FFF;
+			}
+		</style>
+	</header>
+	<body>
+		<div id="app">
+			<div :class="!ifshow?'onlyTitle ayimgui':'ayimgui'" ref="menuMain">
+				<div class="aytitle" @touchstart="titleTouchStart" @touchmove="titleTouchMove">
+					<span class="title-age" style="margin-left:5px;">SS23脚搓（H5GG跨进程绘制）</span>
+					<i class="titleClose el-icon el-icon-close" @click="closeimgui"></i>
+				</div>
+				<div class="aybody">
+					<div class="aytab">
+						<span @click="changeTab('hzgn')" :style="{background:tabValue==='hzgn'?'#387ccc':'#25456D'}"><i
+								class="el-icon-edit"></i>绘制功能</span>
+						<span @click="changeTab('bhgn')" :style="{background:tabValue==='bhgn'?'#387ccc':'#25456D'}"><i
+								class="el-icon-view"></i>半火功能</span>
+						<span @click="changeTab('qtgn')" :style="{background:tabValue==='qtgn'?'#387ccc':'#25456D'}"><i
+								class="el-icon-s-operation"></i>其他功能</span>
+					</div>
+					<div v-show="tabValue==='hzgn'">
+						<div class="aytext">
+							<p>来自大自然的搬运工——芈寒</p>
+						</div>
+						<el-checkbox v-model="checkboxList.isLive" @change="changeLive">主播模式</el-checkbox>
+						<br>
+						<el-checkbox v-model="checkboxList.isDraw">绘制开关</el-checkbox>
+						<el-checkbox v-model="checkboxList.isLine">人物射线</el-checkbox>
+						<el-checkbox v-model="checkboxList.isBox">方框绘制</el-checkbox>
+						<el-checkbox v-model="checkboxList.isHP">玩家血量</el-checkbox>
+						<el-checkbox v-model="checkboxList.isInfo">玩家信息</el-checkbox>
+						<el-checkbox v-model="checkboxList.isDis">玩家距离</el-checkbox>
+						<br>
+						<br>
+						<div class="aycollapse" @click="showOption= !showOption" style="cursor:pointer">
+							<i :class="showOption?'el-icon-caret-bottom':'el-icon-caret-right'"></i>
+							<i class="el-icon-mobile-phone"></i>
+							<span>绘制帧率</span>
+						</div>
+						<el-collapse-transition>
+							<div v-show="showOption">
+								<br>
+								<el-radio-group v-model="radio" @change="fuckfps">
+									<el-radio :label="32"><i class="el-icon-loading"></i>60FPS</el-radio>
+									<el-radio :label="21"><i class="el-icon-loading"></i>90FPS</el-radio>
+									<el-radio :label="16"><i class="el-icon-loading"></i>120FPS</el-radio>
+								</el-radio-group>
+							</div>
+						</el-collapse-transition>
+						<br>
+						<div class="aycollapse" @click="showOption1 = !showOption1" style="cursor:pointer">
+							<i :class="showOption1?'el-icon-caret-bottom':'el-icon-caret-right'"></i>
+							<i class="el-icon-setting"></i>
+							<span>基础设置</span>
+						</div>
+						<el-collapse-transition>
+							<div v-show="showOption1">赶紧给我合上</div>
+						</el-collapse-transition>
+					</div>
+					<div v-show="tabValue === 'bhgn'">
+						<div class="aytext">
+						</div>
+						<br>
+						<el-button>有个坤吧 自己写吧</el-button>
+					</div>
+					<div v-show="tabValue === 'qtgn'">
+						<div class="aytext">
+							<el-empty :image-size="90" description="仅供学习参考 请勿非法用途"></el-empty>
+						</div>
+						<br>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			var app = new Vue({
+				el: "#app",
+				data() {
+					return {
+						ifshow: true,
+						radio: 21,
+						showOption: false,
+						showOption1: false,
+						tabValue: "hzgn",
+						checkboxList: {
+							isDraw: false,
+							isLine: true,
+							isBox: true,
+							isHP: true,
+							isInfo: true,
+							isDis: true,
+						},
+						baseAddr: Number(h5gg.getRangesList(0)[0].start)
+					}
+				},
+				mounted() {
+					this.setRect(360, 290);
+				},
+				methods: {
+					setRect(w, h, x = -1, y = -1) {
+						var boxW = w;
+						var boxH = h;
+
+						var ayMenu = this.$refs.menuMain;
+						ayMenu.style.width = `${boxW}px`;
+						ayMenu.style.height = `${boxH}px`;
+						if (x == -1) ayMenu.style.left = `calc(50% - ${boxW / 2}px)`;
+						if (y == -1) ayMenu.style.top = `calc(50% - ${boxH / 2}px)`;
+					},
+					titleTouchStart(event) {
+						this.touchStartX = parseInt(event.touches[0].clientX);
+						this.touchStartY = parseInt(event.touches[0].clientY);
+
+						var ayMenu = this.$refs.menuMain;
+						this.menuLastX = ayMenu.offsetLeft;
+						this.menuLastY = ayMenu.offsetTop;
+					},
+					titleTouchMove(event) {
+						event.preventDefault();
+						var distanceX = event.touches[0].clientX - this.touchStartX;
+						var distanceY = event.touches[0].clientY - this.touchStartY;
+
+						var ayMenu = this.$refs.menuMain;
+						ayMenu.style.left = this.menuLastX + distanceX + "px";
+						ayMenu.style.top = this.menuLastY + distanceY + "px";
+					},
+					changeTab(v) {
+						this.tabValue = v;
+					},
+					closeimgui() {
+						var menu = document.querySelector("#app");
+						menu.style.display = 'none';
+						setWindowTouch(false);
+					},
+					changeLive() {
+						var hideView = h5gg.loadPlugin("ayHide", "h5gg_hideview.dylib");
+						if (!hideView) {
+							alert('请前往apt.h5gg.app安装过直播插件')
+						} else {
+							var isLive = window.isLive;
+							if (isLive == 1) {
+								window.isLive = 0;
+								setButtonImage("https://q.qlogo.cn/g?b=qq&nk=773466146&s=100");
+								hideView.changeHidden(0);
+							} else {
+								window.isLive = 1;
+								setButtonImage("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAC4jAAAuIwF4pT92AAAFyWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4yLWMwMDAgNzkuMWI2NWE3OSwgMjAyMi8wNi8xMy0xNzo0NjoxNCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjUgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAyMy0wNS0xM1QwMTo0ODowMyswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMy0wNS0xM1QwMTo0ODowMyswODowMCIgeG1wOk1vZGlmeURhdGU9IjIwMjMtMDUtMTNUMDE6NDg6MDMrMDg6MDAiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NzdjMDEzNjEtOTljNC01NDQ3LTg3MDMtMjNkNWU2MTg1YTg3IiB4bXBNTTpEb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NDcwMjcwNDItZDc3ZC03ZTRkLWFmMWMtODc2MGVhZmU4ZDllIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6ZThjZjgwOTYtM2MyNC02NDQwLThiMGMtODQ5YmE1M2E3ZTMzIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyI+IDx4bXBNTTpIaXN0b3J5PiA8cmRmOlNlcT4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNyZWF0ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6ZThjZjgwOTYtM2MyNC02NDQwLThiMGMtODQ5YmE1M2E3ZTMzIiBzdEV2dDp3aGVuPSIyMDIzLTA1LTEzVDAxOjQ4OjAzKzA4OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjMuNSAoV2luZG93cykiLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjc3YzAxMzYxLTk5YzQtNTQ0Ny04NzAzLTIzZDVlNjE4NWE4NyIgc3RFdnQ6d2hlbj0iMjAyMy0wNS0xM1QwMTo0ODowMyswODowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIzLjUgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoNx6iUAAAAhSURBVDiNY/z//z8DNQETVU0bNXDUwFEDRw0cNXAIGQgAaQsDJe3r/CUAAAAASUVORK5CYII=");
+								hideView.changeHidden(1);
+							}
+							var orig_setWindowTouch = setWindowTouch;
+							setWindowTouch = function (isTouch) {
+								var boolNum = isTouch ? 1 : 0;
+								hideView.changeTouch(boolNum);
+								orig_setWindowTouch(isTouch);
+							}
+						}
+					},
+					fuckfps() {
+						clearInterval(window.drawTimer);
+						window.drawTimer = setInterval(function() {
+							if (app.checkboxList.isDraw) {
+								mimangDraw();
+								if (!window.fpscount) window.fpscount = 0;
+								if (!window.fpstime) window.fpstime = performance.now();
+								window.fpscount++;
+								if ((performance.now() - window.fpstime) > 2000) {
+									window.fps = window.fpscount;
+									window.fpstime = performance.now();
+									window.fpscount = 0;
+								}
+								ctx.textBaseline = "top";
+								ctx.textAlign = "center";
+								ctx.font = '40px "Arial, sans-serif"';
+								ctx.fillStyle = "aqua";
+								if (window.fps) ctx.fillText("FPS: " + window.fps, 150, 50);
+							} else {
+								clearCtx();
+							}
+						}, app.radio);
+					},
+				}
+			});
+			setButtonImage("https://q.qlogo.cn/g?b=qq&nk=773466146&s=100");
+			document.body.addEventListener('touchstart', function() {});
+			setWindowDrag(0, 0, 0, 0);
+			var iosScale = window.devicePixelRatio;
+			var sWidth = 0;
+			var sHeight = 0;
+			var canvasDom = document.createElement("canvas");
+			document.body.appendChild(canvasDom);
+			canvasDom.style.height = "100%";
+			canvasDom.style.width = "100%";
+			var layout = function() {
+				if (window.lastorientation == window.orientation) return;
+				window.lastorientation = window.orientation;
+
+				if (Math.abs(window.orientation) == 90) {
+					setWindowRect(0, 0, window.screen.height, window.screen.width);
+					canvasDom.width = window.screen.height * iosScale;
+					canvasDom.height = window.screen.width * iosScale;
+					sWidth = window.screen.height;
+					sHeight = window.screen.width;
+				} else {
+					setWindowRect(0, 0, window.screen.width, window.screen.height);
+					canvasDom.height = window.screen.height * iosScale;
+					canvasDom.width = window.screen.width * iosScale;
+					sWidth = window.screen.width;
+					sHeight = window.screen.height;
+				}
+			}
+			layout();
+			window.addEventListener("orientationchange", layout, false);
+			setButtonAction(function() {
+				var menu = document.querySelector("#app");
+				if (menu.style.display == 'none') {
+					menu.style.display = 'block';
+					setWindowTouch(true);
+				} else {
+					menu.style.display = 'none';
+					setWindowTouch(false);
+				}
+			});
+			var ctx = canvasDom.getContext('2d');
+			setLineWidth(iosScale);
+			var fontFamily = " Arial";
+			var cacheTimer = null;
+			var drawTimer = null;
+			var actorCache = [];
+			var GWorld = 0;
+			function drawCache() {
+				if (isNull(GWorld)) return;
+				var Level = readLong(GWorld + 0x90);
+				var ActorArray = readLong(Level + 0xA0);
+				var ActorCount = readInt(Level + 0xA8);
+				var tempArr = [];
+				for (var i = 0; i < ActorCount; i++) {
+					var actor = readLong(ActorArray + i * 8);
+					if (isNull(actor)) continue;
+					var hpmax = readFloat(actor + 0xD68);
+					if (hpmax == 100 ||
+						hpmax == 110 ||
+						hpmax == 120 ||
+						hpmax == 130 ||
+						hpmax == 140 ||
+						hpmax == 150 ||
+						hpmax == 160 ||
+						hpmax == 170 ||
+						hpmax == 180 ||
+						hpmax == 190 ||
+					    hpmax == 200) {
+						tempArr.push(actor);
+					}
+				}
+				actorCache = tempArr;
+			}
+			var myTeam = 0;
+
+			function mimangDraw() {
+				clearCtx();
+				GWorld = readLong(app.baseAddr + 0xB064888);
+				if (isNull(GWorld)) return;
+				var NetDriver = readLong(GWorld + 0x98);
+				var ServerConnection = readLong(NetDriver + 0x88);
+				var localPlayerController = readLong(ServerConnection + 0x30);
+				var mySelf = readLong(localPlayerController + 0x538);
+				if (isNull(mySelf)) return;
+				const teamCopy = readInt(mySelf + 0xA48)
+				myTeam = teamCopy <= 100 ? teamCopy : myTeam
+				const playerCameraManager = readLong(localPlayerController + 0x5C0)
+				if (isNull(playerCameraManager)) return
+				const povAddr = playerCameraManager + 0x1140 + 0x10;
+				const camViewInfo = {
+					Location: {
+						X: readFloat(povAddr),
+						Y: readFloat(povAddr + 4),
+						Z: readFloat(povAddr + 4 + 4)
+					},
+					Rotation: {
+						Pitch: readFloat(povAddr + 0x18),
+						Yaw: readFloat(povAddr + 0x18 + 4),
+						Roll: readFloat(povAddr + 0x18 + 4 + 4)
+					},
+					FOV: readFloat(povAddr + 0x24)
+				}
+				var tempMatrix = RotatorToMatrix(camViewInfo.Rotation);
+				var playerCout = 0;
+
+				for (var i = 0; i < actorCache.length; i++) {
+					var actor = actorCache[i];
+					if (mySelf == actor) continue;
+                    var bDead = readInt(actor + 0xDC8)
+                    if (bDead != 2) continue;
+					var team = readInt(actor + 0xA48);
+					if (myTeam == team || team == -1) continue;
+					var hp = readFloat(actor + 0xD60);
+					var hpmax = readFloat(actor + 0xD68);
+					var playerhp = 80 * hp / hpmax;
+					var rootComponent = readLong(actor + 0x268);
+					if (isNull(rootComponent)) continue;
+					var worldPos = {
+						X: readFloat(rootComponent + 0x1B0),
+						Y: readFloat(rootComponent + 0x1B0 + 4),
+						Z: readFloat(rootComponent + 0x1B0 + 4 + 4)
+					}
+					var distX = (worldPos.X - camViewInfo.Location.X) / 100;
+					var distY = (worldPos.Y - camViewInfo.Location.Y) / 100;
+					var distance = (distX * distX) + (distY * distY);
+					var distZ = (worldPos.Z - camViewInfo.Location.Z) / 100;
+					distance = Math.ceil(Math.sqrt((distZ * distZ) + distance));
+					var zb1 = {
+						X: worldPos.X,
+						Y: worldPos.Y,
+						Z: worldPos.Z + 88.0
+					}
+					var zb2 = {
+						X: worldPos.X,
+						Y: worldPos.Y,
+						Z: worldPos.Z - 88.0
+					}
+					var fkzb1 = world2Screen(zb1, camViewInfo, tempMatrix);
+					var fkzb2 = world2Screen(zb2, camViewInfo, tempMatrix);
+					var fkgao = fkzb2.Y - fkzb1.Y;
+					var fkkuan = fkgao / 2;
+					var bIsAI = Number(h5gg.getValue(actor + 0xA64, "U8"));
+					var nameAddr = readLong(actor + 0x9D0);
+					name = nameAddr.toString(16);
+					if (!isNull(nameAddr)) {
+						var name = "";
+						for (var s = 0; s < 14; s++) {
+							var after = Number(h5gg.getValue(nameAddr + s * 2, "U8")).toString(16).padStart(2, '0');
+							var before = Number(h5gg.getValue(nameAddr + s * 2 + 1, "U8")).toString(16).padStart(2, '0');
+							var charCode = before + after;
+							if (charCode == "0000") break;
+							name += String.fromCharCode(parseInt(charCode, 16));
+						}
+					}
+					var actorInfo = {
+						x: fkzb1.X,
+						y: fkzb1.Y,
+						w: fkkuan,
+						h: fkgao,
+						hp: playerhp,
+						isAI: bIsAI,
+						team: team,
+						name: name,
+						dis: distance,
+					};
+					shadowInfo(actorInfo);
+					playerCout++;
+				}
+				drawText(playerCout, sWidth / 2, -0, 32, "#f00", "center", true);
+			}
+
+			function shadowInfo(objectInfo) {
+				var color = "#F00";
+				if (objectInfo.isAI) color = "lime";
+				if (objectInfo.isAI) objectInfo.team = "AI";
+				if (app.checkboxList.isLine) {
+					drawLine(sWidth / 2, 65, objectInfo.x, objectInfo.y - 35, color);
+				}
+				if (objectInfo.x < 0 || objectInfo.y < 0 || objectInfo.x > sWidth || objectInfo.y > sHeight) return;
+				if (app.checkboxList.isBox) {
+					drawRect(objectInfo.x - objectInfo.w / 2, objectInfo.y, objectInfo.w, objectInfo.h, color, false);
+				}
+				if (app.checkboxList.isDis) {
+					drawText(`[${objectInfo.dis}m]`, objectInfo.x, objectInfo.y - 45, 10, "#ffec00", "center", true);
+				}
+				if (app.checkboxList.isInfo) {
+					var name = objectInfo.name.length > 6 ? `${objectInfo.name.slice(0, 5)}···` : objectInfo.name;
+					drawRectangle(objectInfo.x - 40, objectInfo.y - 21, 80, 14, "FFF", 0.3, true);
+					drawRectangle(objectInfo.x - 40, objectInfo.y - 21, 16, 14, color, 0.7, true);
+					drawText(objectInfo.team, objectInfo.x - 32, objectInfo.y - 30, 10, "#FFF", "center", true);
+					drawText(name, objectInfo.x + 8, objectInfo.y - 30, 10, "#FFF", "center", true);
+				}
+				if (app.checkboxList.isHP) {
+					var hpColor = objectInfo.hp <= 30 ? "rgba(255,255,0,0.8)" : "rgba(255,255,255,0.8)";
+					drawRoundRect(objectInfo.x - 40, objectInfo.y - 8, 80, 2, 0, "rgba(0,0,0,0.4)", true);
+					drawRoundRect(objectInfo.x - 40, objectInfo.y - 8, Math.ceil(objectInfo.hp), 2, 0, hpColor, true);
+				}
+			}
+
+			function clearCtx() {
+				ctx.clearRect(0, 0, canvasDom.width, canvasDom.height);
+			}
+
+			function setLineWidth(w) {
+				ctx.lineWidth = w;
+			}
+
+			function drawRectangle(x, y, w, h, color, transparency, isFill = true) {
+				x *= iosScale;
+				y *= iosScale;
+				w *= iosScale;
+				h *= iosScale;
+				ctx.beginPath();
+				ctx.fillStyle = color;
+				ctx.globalAlpha = transparency;
+				ctx.fillRect(x, y, w, h,);
+				ctx.closePath();
+			}
+
+			function drawLine(x1, y1, x2, y2, color) {
+				x1 *= iosScale;
+				y1 *= iosScale;
+				x2 *= iosScale;
+				y2 *= iosScale;
+				ctx.beginPath();
+				ctx.fillStyle = color;
+				ctx.strokeStyle = color;
+				ctx.lineWidth = 1.8;
+				ctx.globalAlpha = 1;
+				ctx.moveTo(x1, y1);
+				ctx.lineTo(x2, y2);
+				ctx.stroke();
+				ctx.closePath();
+			}
+
+			function drawCircle(x, y, r, color, isFill = true) {
+				x *= iosScale;
+				y *= iosScale;
+				r *= iosScale;
+				ctx.beginPath();
+				ctx.strokeStyle = color;
+				ctx.fillStyle = color;
+				ctx.globalAlpha = 1;
+				ctx.arc(x, y, r, 0, 2 * Math.PI);
+				if (isFill) {
+					ctx.fill();
+				} else {
+					ctx.stroke();
+				}
+				ctx.closePath();
+			}
+
+			function drawRect(x, y, w, h, color, isFill = true) {
+				x *= iosScale;
+				y *= iosScale;
+				w *= iosScale;
+				h *= iosScale;
+				ctx.beginPath();
+				ctx.strokeStyle = color;
+				ctx.fillStyle = color;
+				ctx.globalAlpha = 1;
+				if (isFill) {
+					ctx.fillRect(x, y, w, h);
+				} else {
+					ctx.strokeRect(x, y, w, h);
+				}
+				ctx.closePath();
+			}
+
+			function drawRoundRect(x, y, w, h, r, color, isFill = true) {
+				x *= iosScale;
+				y *= iosScale;
+				w *= iosScale;
+				h *= iosScale;
+				r *= iosScale;
+				ctx.beginPath();
+				ctx.strokeStyle = color;
+				ctx.fillStyle = color;
+				ctx.globalAlpha = 1;
+				if (w < 2 * r) r = w / 2;
+				if (h < 2 * r) r = h / 2;
+				ctx.beginPath();
+				ctx.moveTo(x + r, y);
+				ctx.arcTo(x + w, y, x + w, y + h, r);
+				ctx.arcTo(x + w, y + h, x, y + h, r);
+				ctx.arcTo(x, y + h, x, y, r);
+				ctx.arcTo(x, y, x + w, y, r);
+				if (isFill) {
+					ctx.fill();
+				} else {
+					ctx.stroke();
+				}
+				ctx.closePath();
+			}
+
+			function drawText(text, x, y, size, color, textAlign, isFill = true) {
+				x *= iosScale;
+				y *= iosScale;
+				size *= iosScale;
+				ctx.beginPath();
+				ctx.globalAlpha = 1;
+				ctx.textAlign = textAlign;
+				ctx.fillStyle = color;
+				ctx.strokeStyle = color;
+				ctx.font = size + 'px' + fontFamily;
+				if (isFill) {
+					ctx.fillText(text, x, y + size);
+				} else {
+					ctx.strokeText(text, x, y + size);
+				}
+				ctx.closePath();
+			};
+
+			function readInt(addr) {
+				return Number(h5gg.getValue(addr, "I32"));
+			}
+
+			function readLong(addr) {
+				return Number(h5gg.getValue(addr, "I64"));
+			}
+
+			function readFloat(addr) {
+				return Number(h5gg.getValue(addr, "F32"));
+			}
+
+			function isNull(addr) {
+				return (addr < 0x100000000 || addr > 0x300000000);
+			}
+
+			function RotatorToMatrix(rotation) {
+				var radPitch = rotation.Pitch * (Math.PI / 180.0);
+				var radYaw = rotation.Yaw * (Math.PI / 180.0);
+				var radRoll = rotation.Roll * (Math.PI / 180.0);
+				var SP = Math.sin(radPitch);
+				var CP = Math.cos(radPitch);
+				var SY = Math.sin(radYaw);
+				var CY = Math.cos(radYaw);
+				var SR = Math.sin(radRoll);
+				var CR = Math.cos(radRoll);
+				var matrix = new Array(16).fill(0);
+				matrix[0] = (CP * CY);
+				matrix[1] = (CP * SY);
+				matrix[2] = (SP);
+				matrix[3] = 0;
+				matrix[4] = (SR * SP * CY - CR * SY);
+				matrix[5] = (SR * SP * SY + CR * CY);
+				matrix[6] = (-SR * CP);
+				matrix[7] = 0;
+				matrix[8] = (-(CR * SP * CY + SR * SY));
+				matrix[9] = (CY * SR - CR * SP * SY);
+				matrix[10] = (CR * CP);
+				matrix[11] = 0;
+				matrix[12] = 0;
+				matrix[13] = 0;
+				matrix[14] = 0;
+				matrix[15] = 1;
+				return matrix;
+			}
+
+			function vectorDot(lhs, rhs) {
+				return (((lhs.X * rhs.X) + (lhs.Y * rhs.Y)) + (lhs.Z * rhs.Z));
+			}
+
+			function world2Screen(worldLocation, camViewInfo, tempMatrix) {
+				var vAxisX = {
+					X: tempMatrix[0],
+					Y: tempMatrix[1],
+					Z: tempMatrix[2]
+				};
+				var vAxisY = {
+					X: tempMatrix[4],
+					Y: tempMatrix[5],
+					Z: tempMatrix[6]
+				};
+				var vAxisZ = {
+					X: tempMatrix[8],
+					Y: tempMatrix[9],
+					Z: tempMatrix[10]
+				};
+				var vDelta = {
+					X: worldLocation.X - camViewInfo.Location.X,
+					Y: worldLocation.Y - camViewInfo.Location.Y,
+					Z: worldLocation.Z - camViewInfo.Location.Z
+				};
+				var vTransformed = {
+					X: vectorDot(vDelta, vAxisY),
+					Y: vectorDot(vDelta, vAxisZ),
+					Z: vectorDot(vDelta, vAxisX)
+				};
+				if (vTransformed.Z < 1.0) {
+					vTransformed.Z = 1.0;
+				}
+				var fov = camViewInfo.FOV;
+				var screenCenterX = (sWidth / 2.0);
+				var screenCenterY = (sHeight / 2.0);
+				var re = {
+					X: (screenCenterX + vTransformed.X * (screenCenterX / Math.tan(fov * (Math.PI / 360.0))) /
+						vTransformed
+						.Z),
+					Y: (screenCenterY - vTransformed.Y * (screenCenterX / Math.tan(fov * (Math.PI / 360.0))) /
+						vTransformed
+						.Z)
+				};
+				return re;
+			}
+
+			cacheTimer = setInterval(function() {
+				drawCache();
+			}, 1000);
+
+			drawTimer = setInterval(function() {
+				if (app.checkboxList.isDraw) {
+					mimangDraw();
+					if (!window.fpscount) window.fpscount = 0;
+					if (!window.fpstime) window.fpstime = performance.now();
+					window.fpscount++;
+					if ((performance.now() - window.fpstime) > 2000) {
+						window.fps = window.fpscount;
+						window.fpstime = performance.now();
+						window.fpscount = 0;
+					}
+					ctx.textBaseline = "top";
+					ctx.textAlign = "center";
+					ctx.font = '40px "Arial, sans-serif"';
+					ctx.fillStyle = "aqua";
+					if (window.fps) ctx.fillText("FPS: " + window.fps, 150, 50);
+				} else {
+					clearCtx();
+				}
+			}, app.radio);
+		</script>
+	</body>
+</html>
